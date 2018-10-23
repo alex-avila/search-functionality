@@ -1,27 +1,26 @@
 <template>
   <section>
     <search-box
-      v-model="searchInput"
+      v-model.trim="searchInput"
       @input="findProducts"
     />
-    {{ matchedProducts.length }}
-    <p
-      v-for="product in matchedProducts"
-      :key="product.id"
-    >
-      {{ product.title }}
-    </p>
+    <search-results
+      v-if="matchedProducts.length"
+      :products="matchedProducts"
+    />
   </section>
 </template>
 
 <script>
 import SearchBox from '@/components/SearchBox.vue'
+import SearchResults from '@/components/SearchResults.vue'
 
 import products from '@/static/products.json'
 
 export default {
   components: {
-    SearchBox
+    SearchBox,
+    SearchResults
   },
   data: () => ({
     searchInput: '',
@@ -29,9 +28,23 @@ export default {
   }),
   methods: {
     findProducts() {
-      this.matchedProducts = products.filter(product => {
-        return product.title.toLowerCase().includes(this.searchInput)
-      })
+      if (this.searchInput.length >= 3) {
+        this.matchedProducts = products.filter(
+          product =>
+            product.title.toLowerCase().includes(this.searchInput) ||
+            product.options.some(option =>
+              option.values.some(val => val === this.searchInput)
+            ) ||
+            product.tags.some(
+              tag =>
+                tag.startsWith('filter-color')
+                  ? tag.includes(this.searchInput)
+                  : false
+            )
+        )
+      } else {
+        this.matchedProducts = []
+      }
     }
   }
 }
