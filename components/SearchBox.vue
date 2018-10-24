@@ -23,7 +23,7 @@ export default {
 
 <style scoped>
 .search-box__wrapper {
-  background: rgb(51, 51, 110);
+  background: ghostwhite;
   padding: 2em auto 1em;
   min-height: 150px;
   display: flex;
@@ -49,6 +49,6 @@ export default {
 
 .search-box__input:focus {
   background: white;
-  box-shadow: 0 0 3pt 2pt rgb(64, 89, 233), 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 3pt 2pt rgb(147, 163, 255), 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 </style>

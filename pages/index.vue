@@ -80,14 +80,14 @@ export default {
 }
 
 .show {
-  opacity: 0.5;
+  opacity: 0.3;
   visibility: visible;
 }
 
 html,
 body {
   height: 100%;
-  background: rgb(39, 39, 39);
+  background: linear-gradient(to bottom, #2f456e, #243b55);
 }
 
 .slide-enter-active {
