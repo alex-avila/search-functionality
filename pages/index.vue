@@ -36,7 +36,7 @@ export default {
   }),
   methods: {
     findProducts() {
-      if (this.searchInput.length >= 3) {
+      if (this.searchInput.length) {
         const searchInput = this.searchInput.toLowerCase()
         this.matchedProducts = products.filter(
           product =>
