@@ -93,7 +93,7 @@ export default {
 html,
 body {
   height: 100%;
-  background: ghostwhite;
+  background: rgb(98, 98, 112);
 }
 
 .slide-enter-active {
