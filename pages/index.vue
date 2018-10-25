@@ -51,7 +51,10 @@ export default {
                   ? tag.split('filter-color-')[1] === searchInput
                   : false
             ) ||
-            product.title.toLowerCase().startsWith(searchInput) ||
+            product.title
+              .toLowerCase()
+              .split(' ')
+              .some(word => word.startsWith(searchInput)) ||
             product.options.some(option =>
               option.values.some(val => val === searchInput)
             )
