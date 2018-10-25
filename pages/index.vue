@@ -36,10 +36,15 @@ export default {
   }),
   methods: {
     findProducts() {
+      this.matchedProducts = []
       if (this.searchInput.length) {
         const searchInput = this.searchInput.toLowerCase()
-        this.matchedProducts = products.filter(
-          product =>
+
+        // filter
+        for (let i = 0; i < products.length; i++) {
+          const product = products[i]
+          if (this.matchedProducts.length >= 6) break
+          if (
             product.title.toLowerCase().includes(searchInput) ||
             product.options.some(option =>
               option.values.some(val => val === searchInput)
@@ -50,9 +55,10 @@ export default {
                   ? tag.includes(searchInput)
                   : false
             )
-        )
-      } else {
-        this.matchedProducts = []
+          ) {
+            this.matchedProducts.push(product)
+          }
+        }
       }
     }
   }
@@ -87,7 +93,7 @@ export default {
 html,
 body {
   height: 100%;
-  background: linear-gradient(to bottom, #2f456e, #243b55);
+  background: ghostwhite;
 }
 
 .slide-enter-active {
