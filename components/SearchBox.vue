@@ -23,7 +23,6 @@ export default {
 
 <style>
 .search-box__wrapper {
-  padding: 2em auto 1em;
   min-height: 150px;
   display: flex;
   align-items: center;
@@ -41,7 +40,6 @@ export default {
   padding: 0.618em 1em;
   display: block;
   width: 300px;
-  padding: 2em auto;
   margin: auto;
   border-radius: 100px;
   transition: all 0.25s ease-out;
