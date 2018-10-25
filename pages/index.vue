@@ -45,15 +45,15 @@ export default {
           const product = products[i]
           if (this.matchedProducts.length >= 6) break
           if (
-            product.title.toLowerCase().includes(searchInput) ||
-            product.options.some(option =>
-              option.values.some(val => val === searchInput)
-            ) ||
             product.tags.some(
               tag =>
                 tag.startsWith('filter-color')
-                  ? tag.includes(searchInput)
+                  ? tag.split('filter-color-')[1].startsWith(searchInput)
                   : false
+            ) ||
+            product.title.toLowerCase().startsWith(searchInput) ||
+            product.options.some(option =>
+              option.values.some(val => val === searchInput)
             )
           ) {
             this.matchedProducts.push(product)
