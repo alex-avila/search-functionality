@@ -21,7 +21,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .search-box__wrapper {
   padding: 2em auto 1em;
   min-height: 150px;

@@ -28,9 +28,6 @@ export default {
       required: true,
       default: () => []
     }
-  },
-  updated() {
-    console.log(this.products)
   }
 }
 </script>
