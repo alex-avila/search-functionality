@@ -39,31 +39,42 @@ export default {
       this.matchedProducts = []
       if (this.searchInput.length) {
         const searchInput = this.searchInput.toLowerCase()
-
         // filter
         for (let i = 0; i < products.length; i++) {
           const product = products[i]
           if (this.matchedProducts.length >= 6) break
           if (
-            product.tags.some(
-              tag =>
-                tag.startsWith('filter-color')
-                  ? tag.split('filter-color-')[1] === searchInput
-                  : false
-            ) ||
-            product.title
-              .toLowerCase()
-              .split(' ')
-              .some(word => word.startsWith(searchInput)) ||
-            product.options.some(option =>
-              option.values.some(val => val === searchInput)
-            )
+            this.matchesTitle(product, searchInput) ||
+            this.matchesColor(product, searchInput) ||
+            this.matchesSize(product, searchInput)
           ) {
             this.matchedProducts.push(product)
           }
         }
       }
-    }
+    },
+    matchesTitle: (product, searchInput) => {
+      // If searchInput has a space search
+      // query entire title instead of just words
+      if (searchInput.includes(' ')) {
+        return product.title.toLowerCase().includes(searchInput)
+      }
+      return product.title
+        .toLowerCase()
+        .split(' ')
+        .some(word => word.startsWith(searchInput))
+    },
+    matchesColor: (product, searchInput) =>
+      product.tags.some(
+        tag =>
+          tag.startsWith('filter-color')
+            ? tag.split('filter-color-')[1] === searchInput
+            : false
+      ),
+    matchesSize: (product, searchInput) =>
+      product.options.some(option =>
+        option.values.some(val => val === searchInput)
+      )
   }
 }
 </script>
