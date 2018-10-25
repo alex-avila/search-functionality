@@ -48,7 +48,7 @@ export default {
             product.tags.some(
               tag =>
                 tag.startsWith('filter-color')
-                  ? tag.split('filter-color-')[1].startsWith(searchInput)
+                  ? tag.split('filter-color-')[1] === searchInput
                   : false
             ) ||
             product.title.toLowerCase().startsWith(searchInput) ||
