@@ -13,7 +13,8 @@
     "precommit": "npm run lint",
     "build:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt build",
     "generate:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt generate",
-    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup",
+    "generate:deploy": "yarn run generate:gh-pages && yarn run deploy"
   },
   "dependencies": {
     "@nuxtjs/bulma": "^1.2.0",
