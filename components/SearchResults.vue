@@ -1,6 +1,10 @@
 <template>
   <div class="search-results__wrapper">
     <div class="search-results">
+      <!-- <transition-group
+        name="products"
+        class="search-results"
+      > -->
       <div
         v-for="product in products"
         :key="product.id"
@@ -11,6 +15,7 @@
           :alt="product.images[0].altText || product.title"
         />
       </div>
+      <!-- </transition-group> -->
     </div>
   </div>
 </template>
@@ -49,4 +54,19 @@ export default {
   grid-template-columns: 1fr 1fr;
   gap: 1em;
 }
+
+/* .products-enter-active,
+.products-leave-active {
+  transition: all 0.25s;
+}
+.products-enter,
+.products-leave-to {
+  opacity: 0;
+}
+.products-move {
+  transition: opacity 0.25s;
+}
+.products-leave-active {
+  position: absolute;
+} */
 </style>

@@ -36,22 +36,23 @@ export default {
   }),
   methods: {
     findProducts() {
-      this.matchedProducts = []
+      const matchedProducts = []
       if (this.searchInput.length) {
         const searchInput = this.searchInput.toLowerCase()
         // filter
         for (let i = 0; i < products.length; i++) {
           const product = products[i]
-          if (this.matchedProducts.length >= 6) break
+          if (matchedProducts.length >= 6) break
           if (
             this.matchesTitle(product, searchInput) ||
             this.matchesColor(product, searchInput) ||
             this.matchesSize(product, searchInput)
           ) {
-            this.matchedProducts.push(product)
+            matchedProducts.push(product)
           }
         }
       }
+      this.matchedProducts = matchedProducts
     },
     matchesTitle: (product, searchInput) => {
       // If searchInput has a space search
