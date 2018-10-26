@@ -5,7 +5,7 @@
       @click="areResultsActive = false"
     />
     <search-box
-      v-model.trim="searchInput"
+      v-model="searchInput"
       @input="findProducts"
       @focus="areResultsActive = true"
     />
@@ -37,22 +37,36 @@ export default {
   methods: {
     findProducts() {
       const matchedProducts = []
-      if (this.searchInput.length) {
-        const searchInput = this.searchInput.toLowerCase()
-        // filter
-        for (let i = 0; i < products.length; i++) {
-          const product = products[i]
-          if (matchedProducts.length >= 6) break
-          if (
+      let searchInput = this.searchInput.toLowerCase().trim()
+      if (searchInput.includes('size ')) {
+        searchInput = searchInput.split('size ')[1] || ''
+        this.filterProducts(products, matchedProducts, product => {
+          return this.matchesSize(product, searchInput)
+        })
+      } else if (searchInput.includes('color ')) {
+        searchInput = searchInput.split('color ')[1] || ''
+        this.filterProducts(products, matchedProducts, product => {
+          return this.matchesColor(product, searchInput)
+        })
+      } else if (searchInput.length) {
+        this.filterProducts(products, matchedProducts, product => {
+          return (
             this.matchesTitle(product, searchInput) ||
             this.matchesColor(product, searchInput) ||
             this.matchesSize(product, searchInput)
-          ) {
-            matchedProducts.push(product)
-          }
-        }
+          )
+        })
       }
       this.matchedProducts = matchedProducts
+    },
+    filterProducts: (products, matchedProducts, matchCondition) => {
+      for (let i = 0; i < products.length; i++) {
+        const product = products[i]
+        if (matchedProducts.length >= 6) break
+        if (matchCondition(product)) {
+          matchedProducts.push(product)
+        }
+      }
     },
     matchesTitle: (product, searchInput) => {
       // If searchInput has a space search
