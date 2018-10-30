@@ -53,13 +53,19 @@ export default {
         this.filterProducts(products, matchedProducts, product => {
           return this.matchesStyle(product, searchInput)
         })
+      } else if (searchInput.includes('collection ')) {
+        searchInput = searchInput.split('collection ')[1] || ''
+        this.filterProducts(products, matchedProducts, product => {
+          return this.matchesCollection(product, searchInput)
+        })
       } else if (searchInput.length) {
         this.filterProducts(products, matchedProducts, product => {
           return (
             this.matchesTitle(product, searchInput) ||
             this.matchesColor(product, searchInput) ||
             this.matchesSize(product, searchInput) ||
-            this.matchesStyle(product, searchInput)
+            this.matchesStyle(product, searchInput) ||
+            this.matchesCollection(product, searchInput)
           )
         })
       }
@@ -97,7 +103,17 @@ export default {
         option.values.some(val => val === searchInput)
       ),
     matchesStyle: (product, searchInput) =>
-      product.tags.some(tag => tag.toLowerCase() === searchInput)
+      product.tags.some(tag => tag.toLowerCase() === searchInput),
+    matchesCollection: (product, searchInput) =>
+      product.tags.some(
+        tag =>
+          tag.startsWith('filter-sortBy')
+            ? tag
+                .split('filter-sortBy-')[1]
+                .split('-')
+                .join(' ') === searchInput
+            : false
+      )
   }
 }
 </script>
