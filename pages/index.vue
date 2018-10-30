@@ -48,6 +48,11 @@ export default {
         this.filterProducts(products, matchedProducts, product => {
           return this.matchesColor(product, searchInput)
         })
+      } else if (searchInput.includes('style ')) {
+        searchInput = searchInput.split('style ')[1] || ''
+        this.filterProducts(products, matchedProducts, product => {
+          return this.matchesStyle(product, searchInput)
+        })
       } else if (searchInput.length) {
         this.filterProducts(products, matchedProducts, product => {
           return (
