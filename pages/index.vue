@@ -53,7 +53,8 @@ export default {
           return (
             this.matchesTitle(product, searchInput) ||
             this.matchesColor(product, searchInput) ||
-            this.matchesSize(product, searchInput)
+            this.matchesSize(product, searchInput) ||
+            this.matchesStyle(product, searchInput)
           )
         })
       }
@@ -89,7 +90,9 @@ export default {
     matchesSize: (product, searchInput) =>
       product.options.some(option =>
         option.values.some(val => val === searchInput)
-      )
+      ),
+    matchesStyle: (product, searchInput) =>
+      product.tags.some(tag => tag.toLowerCase() === searchInput)
   }
 }
 </script>
